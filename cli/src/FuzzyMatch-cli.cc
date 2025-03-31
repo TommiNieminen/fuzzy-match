@@ -70,7 +70,7 @@ bool import_tm(fuzzy::FuzzyMatch& fuzzyMatcher, std::string tmFile, bool addTarg
     count += 1;
     std::string index = boost::lexical_cast<std::string>(count);
     if (addTarget)
-      index += "="+tgtLine;
+      index += "="+srcLine + " ||| " + tgtLine;
     if (add_target_no_index)
       index = tgtLine;
     fuzzyMatcher.add_tm(index, srcLine, /* sort */ false);
@@ -350,7 +350,7 @@ int main(int argc, char** argv)
 #endif
       )
     ("index,i", po::value(&index_file), "index file")
-    ("add-target", po::bool_switch(), "add target in the index")
+    ("add-target", po::bool_switch(), "add source and target in the index")
     ("add-target-no-index", po::bool_switch(), "add target side with no index")
     ("corpus,c", po::value(&corpus), "Corpus file to index. Either bitext or 2 files comma-separated. Can be gzipped.")
     ("fuzzy,f", po::value(&fuzzy)->default_value(0.8), "fuzzy match threshold")
